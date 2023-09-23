@@ -40,7 +40,7 @@ app.post("/api/insert", (req, res) => {
 
     const sqlInsert = "INSERT INTO quest (questTitle, questText) VALUES (?,?);";
     db.query(sqlInsert, [questTitle, questText], (err,result) => {
-        console.log(err);
+        console.log(result);
     });
     
 });
@@ -48,6 +48,7 @@ app.post("/api/insert", (req, res) => {
 app.get("/api/insert", (req2, res2) =>{
     res2.send("hello");
 });
+
 
 app.get("/", (req3,res3) =>{
     res3.send("/ yee");

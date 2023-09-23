@@ -57,11 +57,14 @@ body{
 #quest-title-input{
   width: 40%;
   margin: 0.5%;
+  font-family:friz-quadrata;
 }
 
 #quest-summary-input{
   height:20%;
   margin:0.5%;
+  max-width: 98%;
+  font-family:friz-quadrata;
 }
 
 .quest-list-title {
@@ -75,6 +78,7 @@ body{
   border-style: solid;
   display: flex;
   flex-direction: column;
+  
 }
 
 .quest-summary-title {
@@ -130,6 +134,7 @@ body{
 
 .accept {
   margin-left: 2%;
+  font-size: 120%;
   font-family: friz-quadrata;
   background-color: red;
   color: yellow;
@@ -137,6 +142,7 @@ body{
 
 .decline {
   margin-right: 2%;
+  font-size: 120%;
   font-family: friz-quadrata;
   background-color: red;
   color: yellow;

@@ -30,7 +30,7 @@ function App() {
               <input type="text" id="quest-title-input" placeholder="Enter Quest Title" onChange={(e) => {
                 setQuestTitle(e.target.value);
               }} />
-              <input type="text" id="quest-summary-input" placeholder="Enter Quest Text" onChange={(e) => {
+              <textarea type="text" id="quest-summary-input" placeholder="Enter Quest Text" onChange={(e) => {
                 setQuestText(e.target.value);
               }} />
               <p style={{ marginLeft: '0.5%' }}>Click the red button to add quest objectives</p>
