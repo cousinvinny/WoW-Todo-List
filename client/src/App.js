@@ -6,14 +6,23 @@ import './App.css';
 function App() {
   const [questTitle, setQuestTitle] = useState('');
   const [questText, setQuestText] = useState('');
+  const [questList, setQuestList] = useState([]);
+  
+  useEffect(()=>{
+    Axios.get('http://localhost:3001/api/get').then((response)=>{
+      setQuestList(response.data);
+    })
+  });
 
   const submitQuest = () => {
     Axios.post("http://localhost:3001/api/insert", {
       questTitle: questTitle, 
       questText: questText,
-    }).then(() => {
-      alert('successful insert');
     });
+
+    setQuestList([
+      ...questList, {questTitle: questTitle, questText: questText}
+    ]);
   };
 
   return (
@@ -49,6 +58,13 @@ function App() {
         <aside>
           <div className="quest-list">
             <div className="quest-list-title">Quests</div>
+            {questList.map((val)=>{
+              return(
+                <h4>
+                  QuestTitle: {val.questTitle} | QuestText: {val.questText}
+                </h4>
+              );
+            })}
           </div>
         </aside>
       </div>

@@ -33,10 +33,6 @@ app.use(express.json()); //allows parsing of json request bodies
 app.post("/api/insert", (req, res) => { 
     const questTitle = req.body.questTitle;
     const questText = req.body.questText;
-    /*const sqlInsert = "INSERT INTO quest (questTitle, questObjective, objectiveCount, objectivesCompleted, questText, reward) VALUES (?,?,?,?,?,?);";
-    db.query(sqlInsert, [id, questTitle, questObjective, objectiveCount, objectivesCompleted, questText, reward], (err,result) => {
-        console.log(request);
-    });*/
 
     const sqlInsert = "INSERT INTO quest (questTitle, questText) VALUES (?,?);";
     db.query(sqlInsert, [questTitle, questText], (err,result) => {
@@ -45,13 +41,11 @@ app.post("/api/insert", (req, res) => {
     
 });
 
-app.get("/api/insert", (req2, res2) =>{
-    res2.send("hello");
-});
-
-
-app.get("/", (req3,res3) =>{
-    res3.send("/ yee");
+app.get("/api/get", (req, res) =>{
+    const sqlSelect = "SELECT * FROM quest";
+    db.query(sqlSelect, (err,result) => {
+        res.send(result);
+    });
 });
 
 app.listen(3001, () => {
