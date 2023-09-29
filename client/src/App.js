@@ -7,23 +7,33 @@ function App() {
   const [questTitle, setQuestTitle] = useState('');
   const [questText, setQuestText] = useState('');
   const [questList, setQuestList] = useState([]);
-  
-  useEffect(()=>{
-    Axios.get('http://localhost:3001/api/get').then((response)=>{
+  const [additionalObjectives, setAdditionalObjectives] = useState([]);
+
+  useEffect(() => {
+    Axios.get('http://localhost:3001/api/get').then((response) => {
       setQuestList(response.data);
     })
   });
 
   const submitQuest = () => {
     Axios.post("http://localhost:3001/api/insert", {
-      questTitle: questTitle, 
+      questTitle: questTitle,
       questText: questText,
     });
 
     setQuestList([
-      ...questList, {questTitle: questTitle, questText: questText}
+      ...questList, { questTitle: questTitle, questText: questText }
     ]);
   };
+
+  const addAdditionalObjectives = () => {
+    setAdditionalObjectives([...additionalObjectives, '']); 
+  };
+
+  useEffect(() => {
+    // This effect will run whenever additionalInputs change
+    console.log('additionalInputs changed:', additionalObjectives);
+  }, [additionalObjectives]);
 
   return (
     <div className="App">
@@ -43,8 +53,20 @@ function App() {
                 setQuestText(e.target.value);
               }} />
               <p style={{ marginLeft: '0.5%' }}>Click the red button to add quest objectives</p>
-              <button id="add-objective-button">+</button> {/* Add the + icon */}
-              <div id="additional-input-container"></div>
+              <button id="add-objective-button" onClick={addAdditionalObjectives}>+</button> {/* Add the + icon */}
+              <div id="additional-input-container">
+                {additionalObjectives.map((index) => (
+                  <input
+                    id="objective"
+                    type="text"
+                    key={index}
+                    placeholder={`Objective ${index + 1}`}
+                    onChange={(e) => {
+                      // You can handle the input values here if needed
+                    }}
+                  />
+                ))}
+              </div>
             </div>
             <div className="rewards-summary-container">
               <div className="rewards-title"></div>
@@ -58,8 +80,8 @@ function App() {
         <aside>
           <div className="quest-list">
             <div className="quest-list-title">Quests</div>
-            {questList.map((val)=>{
-              return(
+            {questList.map((val) => {
+              return (
                 <h4>
                   QuestTitle: {val.questTitle} | QuestText: {val.questText}
                 </h4>
